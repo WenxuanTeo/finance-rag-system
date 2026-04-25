@@ -1,11 +1,16 @@
-from sentence_transformers import CrossEncoder
+from rag.rewrite import rewrite
+from rag.retriever import hybrid_search
+from rag.rerank import rerank
 
-reranker = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')
 
-def rerank(query, candidates):
-    pairs = [(query, c["chunk"]) for c in candidates]
-    scores = reranker.predict(pairs)
+def run_pipeline(query, chunks, bm25, index, corpus, embeddings):
+    new_query = rewrite(query)
+    print("🔁 Rewrite:", new_query)
 
-    results = list(zip(scores, candidates))
-    results.sort(key=lambda x: x[0], reverse=True)
-    return results
+    idxs = hybrid_search(new_query, bm25, index, corpus, embeddings)
+
+    candidates = [chunks[i] for i in idxs]
+
+    results = rerank(new_query, candidates)
+
+    return results[:3]
