@@ -1,109 +1,88 @@
-# Financial Data Pipeline for RAG (Spark + Hybrid Retrieval)
-A scalable financial data-centric RAG system with distributed processing (Apache Spark), hybrid search, reranking, and evaluation-driven optimization.
+# Financial RAG System (Spark + Hybrid Retrieval)
 
-## Project Overview
+A scalable financial data-centric RAG system with distributed processing (Apache Spark), hybrid retrieval, reranking, and evaluation.
 
-This project builds a scalable financial data pipeline using Apache Spark to support RAG systems and large language model applications.
+---
 
-It focuses on:
+##  Project Overview
 
-- Processing large-scale financial documents (PDF / News / Reports)
-- Data cleaning and structuring
-- Hybrid retrieval (BM25 + Vector)
-- Rerank optimization
-- Evaluation-driven improvement
+This project builds an end-to-end financial RAG system, focusing on improving retrieval quality and reducing hallucination in LLM applications.
 
-The goal is to improve RAG performance through better data and retrieval.
+Key capabilities:
 
-## System Architecture
+- Financial document processing (PDF / News / Reports)
+- Distributed data pipeline (Apache Spark)
+- Hybrid retrieval (BM25 + Vector search)
+- Query Rewrite for better recall
+- Cross-encoder Rerank for precision
+- Evaluation-driven optimization
 
-Raw Data (PDF / Web / News)
-↓
-Spark Data Pipeline
-↓
-Cleaning & Structuring
-↓
-Chunking + Metadata
-↓
-Embedding
-↓
-Hybrid Retrieval (BM25 + Vector)
-↓
-Rerank
-↓
-LLM Generation
-↓
-Evaluation & Feedback#
+---
 
-# Key Features
+##  My Contributions
 
-- Distributed data processing (Spark)
-- Financial document parsing (PDF / Web)
-- Hybrid retrieval (BM25 + Vector)
-- Cross-encoder reranking
-- Evaluation metrics (Hit Rate / Accuracy)
-- Modular pipeline design
+- Designed **Spark-based data pipeline** for financial text processing
+- Implemented **Hybrid Retrieval (BM25 + FAISS)** to improve recall
+- Built **Query Rewrite module** to enhance search quality
+- Integrated **Cross-Encoder Rerank** to improve ranking accuracy
+- Developed **evaluation metrics (Hit Rate / Accuracy)** for iterative optimization
+- Built **end-to-end pipeline** from data → retrieval → generation → evaluation
 
-## Project Structure
+---
 
-finance-data-pipeline-rag/
+##  System Architecture
+
+Raw Data → Spark Pipeline → Cleaning → Chunking → Embedding  
+→ Hybrid Retrieval → Rerank → LLM → Evaluation
+
+---
+
+##  Project Structure
+finance-rag-system/
 ├── spark/
-│   ├── spark_job.py
-│   ├── ingest.py
-│   ├── clean.py
-│   ├── chunk.py
 ├── rag/
-│   ├── pipeline.py
-│   ├── retriever/
-│   ├── rerank/
 ├── evaluation/
-│   └── metrics.py
+├── api/
 ├── requirements.txt
 └── README.md
 
-## How to Run
+---
 
-### Install dependencies
+##  How to Run
 
+### 1️⃣ Install
 pip install -r requirements.txt
+### 2️⃣ Run pipeline
+python -m spark.job
+### 3️⃣ Start API
+uvicorn api.app:app --reload
 
-### Run Spark pipeline
+---
 
-spark-submit spark/spark_job.py
+## 📊 Evaluation
 
-### Run RAG pipeline
-
-python rag/pipeline.py
-
-## Example
-
-Query: What is Tesla revenue growth?
-
-Answer:
-Tesla reported significant revenue growth driven by increased deliveries and global expansion...
-
-## Evaluation
-
-### Retrieval Metrics
+### Retrieval
 
 - Hit Rate @K
 - Recall @K
 
-### Generation Metrics
+### Generation
 
-- Answer Accuracy
+- Accuracy
 - Groundedness
-- Hallucination Rate
 
-### Optimization Strategy
+---
 
-- Improve chunking
-- Improve query rewrite
-- Filter low-quality documents
+##  Key Highlights
 
-## Future Improvements
+- Combines **data engineering + LLM system design**
+- Improves RAG quality via **Hybrid + Rewrite + Rerank**
+- Fully **modular and production-oriented**
 
-- Knowledge graph integration
-- Multi-hop QA dataset construction
-- SFT data generation
+---
+
+##  Future Work
+
+- Knowledge Graph integration
+- Multi-hop QA dataset generation
 - Streaming pipeline (Kafka + Spark)
