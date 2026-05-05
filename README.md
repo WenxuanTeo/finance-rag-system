@@ -86,3 +86,10 @@ uvicorn api.app:app --reload
 - Knowledge Graph integration
 - Multi-hop QA dataset generation
 - Streaming pipeline (Kafka + Spark)
+## Practical Insights
+
+During implementation, I found that chunk size and retrieval strategy significantly affect performance. 
+Smaller chunks may break context, while larger chunks introduce noise. 
+I adjusted retrieval parameters (top-k) and added simple reranking to improve answer relevance.
+
+I also added fallback handling to make the system more robust when no relevant documents are retrieved.
